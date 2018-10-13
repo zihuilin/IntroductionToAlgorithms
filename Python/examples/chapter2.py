@@ -22,8 +22,8 @@ def _merge(array, p, q, r):  # P30, 中文版17页
         array_right.append(array[q + 1 + index])
     array_left.append(float('inf'))
     array_right.append(float('inf'))
-    index_left = 0;
-    index_right = 0;
+    index_left = 0
+    index_right = 0
     for index in range(p, r + 1):
         if array_left[index_left] < array_right[index_right]:
             array[index] = array_left[index_left]
