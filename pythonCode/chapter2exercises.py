@@ -36,6 +36,45 @@ def run_exercise2_1_3():
     print(find_index(array, 2))
 
 
+def add_binary_array(array1, array2):  # 2.1-4
+    result_array = [0] * (len(array1) + 1)
+    carry = 0
+    for index in range(len(array1) - 1, -1, -1):
+        if array1[index] and array2[index]:
+            if carry:
+                result_array[index + 1] = 1
+            else:
+                result_array[index + 1] = 0
+            carry = 1
+        elif array1[index] or array2[index]:
+            if carry:
+                result_array[index + 1] = 0
+                carry = 1
+            else:
+                result_array[index + 1] = 1
+                carry = 0
+        else:
+            if carry:
+                result_array[index + 1] = 1
+            else:
+                result_array[index + 1] = 0
+            carry = 0
+    if carry:
+        result_array[0] = 1
+    else:
+        result_array[0] = 0
+    return result_array
+
+
+def run_exercise2_1_4():
+    array1 = [1, 0, 1, 0]
+    array2 = [1, 1, 0, 1]
+    result = add_binary_array(array1, array2)
+    print(result)
+
+
 if __name__ == '__main__':
     # run_exercise2_1_2()
-    run_exercise2_1_3()
+    # run_exercise2_1_3()
+    run_exercise2_1_4()
+
