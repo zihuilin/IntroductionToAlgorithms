@@ -1,4 +1,4 @@
-import Python.examples.common as common
+import Python.common as common
 
 
 def insert_sort(array):  # P25, 中文版14页
