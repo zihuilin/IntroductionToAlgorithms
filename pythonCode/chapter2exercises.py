@@ -73,8 +73,35 @@ def run_exercise2_1_4():
     print(result)
 
 
+def select_sort(array, is_desc):
+    for select_index in range(len(array) - 1):  # last element don't need to be selected
+        target_index = select_index
+        min_or_max_index = target_index
+        target_index = target_index + 1
+        while target_index < len(array):
+            if is_desc:
+                if array[target_index] < array[min_or_max_index]:
+                    temp = array[target_index]
+                    array[target_index] = array[min_or_max_index]
+                    array[min_or_max_index] = temp
+            elif array[target_index] > array[min_or_max_index]:
+                temp = array[target_index]
+                array[target_index] = array[min_or_max_index]
+                array[min_or_max_index] = temp
+            target_index = target_index + 1
+
+
+def run_exercise2_2_2():
+    array_to_be_sorted = common.random_int_list()
+
+    def fn_sort(array):
+        select_sort(array, True)
+    common.test_sort(array_to_be_sorted, fn_sort, True)
+
+
 if __name__ == '__main__':
     # run_exercise2_1_2()
     # run_exercise2_1_3()
-    run_exercise2_1_4()
+    # run_exercise2_1_4()
+    run_exercise2_2_2()
 
