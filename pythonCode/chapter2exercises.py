@@ -129,11 +129,11 @@ def merge_sort_e2_3_2(array, p, r):
 
 
 def run_exercise_2_3_2():
-    array = common.random_int_list()
+    array_to_be_sorted = common.random_int_list()
 
     def fn_sort(array):
         merge_sort_e2_3_2(array, 0, len(array)-1)
-    common.test_sort(array, fn_sort)
+    common.test_sort(array_to_be_sorted, fn_sort)
 
 
 def insert_sort_recursive_e2_3_4(array, n, is_desc):
@@ -158,8 +158,120 @@ def run_exercise_2_3_4():
     common.test_sort(array_to_be_sorted, fn_sort)
 
 
-# def binary_search_iteration_e2_3_5(array, key):
-    # index =
+def binary_search_iteration_e2_3_5(array, key):
+    start_index = 0
+    end_index = len(array) - 1
+    while start_index <= end_index:
+        check_index = int((start_index + end_index)/2)
+        if key == array[check_index]:
+            return check_index
+        elif key > array[check_index]:
+            start_index = check_index + 1
+        else:
+            end_index = check_index - 1
+    return None
+
+
+def binary_search_recursive_e2_3_5(array, start_index, end_index, key):
+    if start_index > end_index:
+        return None
+    check_index = int((start_index + end_index) / 2)
+    if key == array[check_index]:
+        return check_index
+    elif key > array[check_index]:
+        return binary_search_recursive_e2_3_5(array, check_index + 1, end_index, key)
+    else:
+        return binary_search_recursive_e2_3_5(array, start_index, check_index - 1, key)
+
+
+def run_exercise_2_3_5():
+    array_to_be_searched = [1, 2, 3, 4, 5]
+    key_to_be_searched = 2
+    common.test_index_of(array_to_be_searched, binary_search_iteration_e2_3_5, key_to_be_searched)
+
+    def fn_search(array, key):
+        return binary_search_recursive_e2_3_5(array, 0, len(array)-1, key)
+    common.test_index_of(array_to_be_searched, fn_search, key_to_be_searched)
+
+
+def insert_sort_with_binary_search_e2_3_6(array):
+    current_index = 1
+    while current_index < len(array):
+        key = array[current_index]
+        start_index = 0
+        end_index = current_index - 1
+        check_index = int((start_index + end_index) / 2)
+        while start_index < end_index:
+            if key == array[check_index]:
+                break
+            elif key > array[check_index]:
+                start_index = check_index + 1
+                check_index = int((start_index + end_index) / 2)
+            else:
+                end_index = check_index - 1
+                check_index = int((start_index + end_index) / 2)
+        index = current_index - 1
+        while index >= check_index:
+            array[index + 1] = array[index]
+            index = index - 1
+        array[check_index + 1] = key
+        current_index = current_index + 1
+
+
+def run_exercise_2_3_6():
+    array_to_sort = range(10000, 1, -1)
+    # array_to_sort = range(1, 10000, 1)
+    # array_to_sort = common.random_int_list(1, 100000, 10000)
+    common.test_sort(list(array_to_sort), insert_sort_with_binary_search_e2_3_6, False)
+
+    def fn_merge_sort(array):
+        merge_sort_e2_3_2(array, 0, len(array) - 1)
+
+    common.test_sort(list(array_to_sort), fn_merge_sort, False)
+
+
+def merge_e2_3_7(array, p, q, r):
+    array_left_len = q - p + 1
+    array_right_len = r - q
+    array_left = []
+    array_right = []
+    for index in range(array_left_len):
+        array_left.append(array[p + index])
+    for index in range(array_right_len):
+        array_right.append(array[q + 1 + index])
+    array_left.append(float('inf'))
+    array_right.append(float('inf'))
+    index_left = 0
+    index_right = 0
+    for index in range(p, r + 1):
+        if array_left[index_left] == array_right[index_right]:
+            return True
+        if array_left[index_left] < array_right[index_right]:
+            array[index] = array_left[index_left]
+            index_left = index_left + 1
+        else:
+            array[index] = array_right[index_right]
+            index_right = index_right + 1
+    return False
+
+
+def merge_sort_as_find_same_elements(array, p, r):
+    if p < r:
+        q = int((r+p)/2)
+        has_same_elements = merge_sort_as_find_same_elements(array, p, q)
+        has_same_elements = merge_sort_as_find_same_elements(array, q+1, r)
+        has_same_elements = merge_e2_3_7(array, p, q, r)
+        if has_same_elements:
+            return True
+    return False
+
+
+def run_exercise_2_3_7():
+    array_to_search = common.random_int_list(1, 100000, 10000)
+    # array_to_search.append(array_to_search[300])
+    has_same_elements = merge_sort_as_find_same_elements(array_to_search, 0, len(array_to_search)-1)
+    print(has_same_elements)
+
 
 if __name__ == '__main__':
     # run_exercise2_1_2()
@@ -167,5 +279,8 @@ if __name__ == '__main__':
     # run_exercise2_1_4()
     # run_exercise2_2_2()
     # run_exercise_2_3_2()
-    run_exercise_2_3_4()
+    # run_exercise_2_3_4()
+    # run_exercise_2_3_5()
+    # run_exercise_2_3_6()
+    run_exercise_2_3_7()
 
