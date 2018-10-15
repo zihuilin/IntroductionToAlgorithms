@@ -158,6 +158,9 @@ def run_exercise_2_3_4():
     common.test_sort(array_to_be_sorted, fn_sort)
 
 
+# def binary_search_iteration_e2_3_5(array, key):
+    # index =
+
 if __name__ == '__main__':
     # run_exercise2_1_2()
     # run_exercise2_1_3()
