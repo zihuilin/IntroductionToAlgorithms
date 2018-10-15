@@ -43,12 +43,12 @@ def merge_sort(array, p, r):  # P31, 中文版19页
 
 if __name__ == '__main__':
     array_to_sort = common.random_int_list(1, 100000, 10000)
-    common.test_sort(list(array_to_sort), insert_sort)
+    common.test_sort(list(array_to_sort), insert_sort, False)
 
     def fn_merge_sort(array):
         merge_sort(array, 0, len(array) - 1)
 
-    common.test_sort(list(array_to_sort), fn_merge_sort)
+    common.test_sort(list(array_to_sort), fn_merge_sort, False)
 
     # array_to_merge = [1,3,5,7,2,4,6,8]
     # _merge(array_to_merge,0,3,7)

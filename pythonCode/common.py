@@ -6,7 +6,7 @@ def random_int_list(start=0, stop=100, length=10):
     return random.sample(range(start, stop), length)
 
 
-def test_sort(array, fn_sort, show_result=False):
+def test_sort(array, fn_sort, show_result=True):
     if show_result:
         print("Before sorted: {}".format(array))
     start_time = time.time()
